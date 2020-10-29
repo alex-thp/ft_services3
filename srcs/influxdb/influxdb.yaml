@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb
+spec:
+  ports:
+  - port: 8086
+    targetPort: 8086
+    protocol: TCP
+  selector:
+    app: influxdb
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: influxdb
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+      - image: image-influxdb
+        name: container-influxdb
+        imagePullPolicy: Never
+        env:
+          # Use secret in real usage
+        - name: INFLUXDB_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 8086
+          name: influxdb

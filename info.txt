@@ -1,0 +1,19 @@
+minikube start
+kubectl apply -f srcs/nginx/nginx.yaml //to create and start a container (nginx in this case)
+kubectl delete all --all //delete all containers
+kubectl get pod -o wide //list all containers and display their IP adress
+kubectl dashboard //display the dashboard resuming the cluster situation
+minikube ip //get the cluster's ip
+apk add --update util-linux (get whereis)
+apk add openrc --no-cache (get service)
+start grafana = /usr/sbin/grafana-server --config=/usr/share/grafana/conf/defaults.ini --homepath=/usr/share/grafana
+docker run -it -p 80:3000 image-docker expose le port 80 et le relie au port 3000
+plage ip pour la vm : 172.17.255.0
+#minikube start
+eval $(minikube docker-env)
+docker build -t image_nginx srcs/nginx/
+docker build -t image_php srcs/phpmyadmin/
+kubectl apply -f srcs/nginx/nginx.yaml
+#docker run -itd --name container_nginx image_nginx
+#docker run -itd --name container_php image_php
+#minikube addons enable metallb
